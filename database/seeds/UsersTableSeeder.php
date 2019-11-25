@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
         //reset the users table
         DB::table('users')->truncate();
 
-        DB::table('users')->insert(
+        DB::table('users')->insert([
         [
             'name' => "john doe",
             'email' => "johndoe@test.com",
@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret')
         ],
     
-        );
+        ]);
     }
 }

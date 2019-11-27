@@ -9,31 +9,29 @@ use App\Category;
 class BlogController extends Controller
 {
     public function index(){
-            $categories = Category::with(['posts' => function($query){
-                $query->published();
-            }])->orderBy('title','asc')->get();
 
         $posts = Post::with('author')
         ->latestFirst()
         ->published()
         ->paginate(3);
-        return view('blog.index', compact('posts','categories'));
+        return view('blog.index', compact('posts'));
     }
 
-    public function category($id){
-            $categories = Category::with(['posts' => function($query){
-                $query->published();
-            }])->orderBy('title','asc')->get();
+    public function category(Category $category){
 
-        $posts = Post::with('author')
-        ->latestFirst()
-        ->published()
-        ->where('category_id',$id)
-        ->paginate(3);
-        return view('blog.index', compact('posts','categories'));
+            $categoryName = $category->title;
+
+  
+        $posts = $category->posts()
+                        ->with('author')
+                        ->latestFirst()
+                        ->published()
+                        ->paginate(5);
+
+        return view('blog.index', compact('posts','categoryName'));
     }
     public function show(Post $post){
-      //  $post = Post::published()->findOrFail($id);
+       
         return view("blog.show", compact('post'));
     }
 }

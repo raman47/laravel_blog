@@ -13,7 +13,5 @@ class Category extends Model
     public function getRoutekeyName(){
         return 'slug';
     }
-    public function test(){
 
-    }
 }

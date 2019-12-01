@@ -31,6 +31,7 @@ class BlogController extends Controller
         return view('blog.index', compact('posts','categoryName'));
     }
     public function show(Post $post){
+        $post->increment('view_count');
         return view("blog.show", compact('post'));
     }
     public function author(User $author){

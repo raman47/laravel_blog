@@ -44,7 +44,8 @@
                             <div class="card-body">
                              {!! Form::model($post,[
                                 'method' => 'POST',
-                                'route' => 'blog.store'
+                                'route' => 'blog.store',
+                                'files' => true
                             ]) !!}
                                 <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}">
                                     {!! Form::label('title') !!}
@@ -83,6 +84,13 @@
                                     {!! Form::select('category_id', App\Category::pluck('title','id'),null, ['class' => 'form-control', 'placeholder' => 'Choose Category']) !!}
                                     @if($errors->has('category_id'))
                                         <span class="help-block error">{{$errors->first('category_id')}}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group {{$errors->has('image') ? 'has-error' : ''}}">
+                                    {!! Form::label('image', 'Feature Image') !!}
+                                    {!! Form::file('image') !!}
+                                    @if($errors->has('image'))
+                                        <span class="help-block error">{{$errors->first('image')}}</span>
                                     @endif
                                 </div>
                                 <hr>

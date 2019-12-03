@@ -28,3 +28,6 @@
         'uses' => 'BlogController@author',
         'as' => 'author'
     ]);
+Auth::routes();
+
+Route::get('/home', 'Backend\HomeController@index')->name('home');

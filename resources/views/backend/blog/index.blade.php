@@ -14,8 +14,9 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item"><a href="{{url('/home')}}">Dashboard</a></li>
+                            <li class="breadcrumb-item "><a href="{{route('blog.index')}}">Blog</a></li>
+                            <li class="breadcrumb-item active">All Posts</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -41,6 +42,14 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <div class="pull-left mb-4">
+                                    <a href="{{route('blog.create')}}" class="btn btn-success">Add New</a>
+                                </div>
+                                @if(! $posts->count())
+                                    <div class="alert alert-danger">
+                                        <strong>  No Record Found </strong>
+                                    </div>
+                                @else
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -73,6 +82,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                @endif
 
                             </div>
                             <!-- /.card-body -->
@@ -81,7 +91,7 @@
                                     {{$posts->links()}}
                                 </div>
                                 <div class="float-right">
-                                    <?php $postCount = $posts->count();?>
+
                                     <small>{{$postCount}} {{str_plural('Item',$postCount)}}</small>
                                 </div>
                             </div>

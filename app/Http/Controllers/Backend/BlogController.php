@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 
 use App\Post;
+use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-
+use Intervention\Image\Facades\Image as InterventionImage;
 class BlogController extends BackendController
 {
     protected $limit = 5;
@@ -14,7 +15,7 @@ class BlogController extends BackendController
 
     public function __construct(){
         //parent::__construct();
-        $this->uploadPath = public_path('img/featuredBlogImages');
+        $this->uploadPath = public_path(config('cms.image.directory'));
     }
 
     public function index()
@@ -40,8 +41,16 @@ class BlogController extends BackendController
         if($request->hasFile('image')){
             $image  = $request->file('image');
             $fileName = $image->getClientOriginalName();
+
             $destination = $this->uploadPath;
-            $image->move($destination, $fileName);
+            $successUploaded = $image->move($destination, $fileName);
+            if($successUploaded){
+                $width = config('cms.image.thumbnail.width');
+                $height = config('cms.image.thumbnail.height');
+                $extension = $image->getClientOriginalExtension();
+                $thumbnail = str_replace(".{$extension}", "_thumb.{$extension}", $fileName);
+                InterventionImage::make($destination.'/'.$fileName)->resize($width,$height)->save($destination.'/'.$thumbnail);
+            }
             $data['image'] = $fileName;
         }
         return $data;

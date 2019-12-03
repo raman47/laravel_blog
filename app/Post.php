@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-   protected $dates = ['published_at'];
+    protected $fillable = ['title','slug','excerpt','body','published_at','category_id'];
+    protected $dates = ['published_at'];
 
     public function getImageUrlAttribute($value){
 
@@ -48,6 +49,9 @@ class Post extends Model
     }
     public function getExcerptHtmlAttribute($value){
         return $this->excerpt ? Markdown::convertToHtml(e($this->excerpt)) : NULL;
+    }
+    public function setPublishedAttribute($value){
+        $this->attributes['published_at'] = $value ?: NULL;
     }
     public function dateFormatted($showTimes = false){
         $format = "d/m/Y";

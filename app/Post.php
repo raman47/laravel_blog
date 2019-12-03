@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
    protected $dates = ['published_at'];
-    
+
     public function getImageUrlAttribute($value){
-        
+
         $imageUrl = "";
         if( ! is_null($this->image)){
 
@@ -23,7 +23,7 @@ class Post extends Model
         return $imageUrl;
     }
     public function getImageThumbUrlAttribute($value){
-        
+
         $imageUrl = "";
         if( ! is_null($this->image)){
             $ext = substr(strrchr($this->image, '.'),1);
@@ -36,7 +36,7 @@ class Post extends Model
 
     public function author(){
         return $this->belongsTo(User::class);
-    } 
+    }
     public function category(){
         return $this->belongsTo(Category::class);
     }
@@ -49,6 +49,20 @@ class Post extends Model
     public function getExcerptHtmlAttribute($value){
         return $this->excerpt ? Markdown::convertToHtml(e($this->excerpt)) : NULL;
     }
+    public function dateFormatted($showTimes = false){
+        $format = "d/m/Y";
+        if($showTimes) $format = $format." H:i:s";
+        return $this->created_at->format($format);
+    }
+    public function publicationLabel(){
+        if(! $this->published_at){
+            return '<span class="badge badge-warning"> Draft</span>';
+        }elseif ($this->published_at && $this->published_at->isFuture()){
+            return '<span class="badge badge-info"> Schedule</span>';
+        }else{
+            return '<span class="badge badge-success"> Published</span>';
+        }
+    }
     public function scopeLatestFirst($query){
         return $query->orderBy('created_at','desc');
     }
@@ -58,5 +72,5 @@ class Post extends Model
     public function scopePopular($query){
         return $query->orderBy('view_count','desc');
     }
-    
+
 }

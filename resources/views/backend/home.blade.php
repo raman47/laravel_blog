@@ -15,7 +15,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -45,7 +45,7 @@
                                 <p class="lead text-muted">Hallo {{Auth::user()->name }}, Welcome to MyBlog</p>
 
                                 <h4>Get started</h4>
-                                <p><a href="#" class="btn btn-primary">Write your first blog post</a> </p>
+                                <p><a href="{{route('blog.create')}}" class="btn btn-primary">Write your first blog post</a> </p>
                             </div>
                             <!-- /.card-body -->
                         </div>

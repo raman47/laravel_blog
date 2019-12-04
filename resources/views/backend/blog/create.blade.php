@@ -32,7 +32,13 @@
                 <!-- /.row -->
                 <!-- Main row -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-9">
+                        {!! Form::model($post,[
+                                'method' => 'POST',
+                                'route' => 'blog.store',
+                                'files' => true,
+                                'id' => 'post-form'
+                            ]) !!}
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
@@ -42,11 +48,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                             {!! Form::model($post,[
-                                'method' => 'POST',
-                                'route' => 'blog.store',
-                                'files' => true
-                            ]) !!}
+
                                 <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}">
                                     {!! Form::label('title') !!}
                                     {!! Form::text('title', null, ['class' => 'form-control']) !!}
@@ -61,7 +63,7 @@
                                         <span class="help-block error">{{$errors->first('title')}}</span>
                                     @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group excerpt">
                                     {!! Form::label('excerpt') !!}
                                     {!! Form::textarea('excerpt', null, ['class' => 'form-control']) !!}
                                 </div>
@@ -72,49 +74,118 @@
                                         <span class="help-block error">{{$errors->first('body')}}</span>
                                     @endif
                                 </div>
-                                <div class="form-group {{$errors->has('published_at') ? 'has-error' : ''}}">
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <div class="col-md-3">
+
+                        <div class="card">
+                            <div class="card-header">Publish</div>
+                            <div class="card-body">
+                                <div class="form-group {{$errors->has('published_at') ? 'has-error' : ''}} ">
                                     {!! Form::label('published_at', 'Publish Date') !!}
-                                    {!! Form::text('published_at', null, ['class' => 'form-control', 'placeholder' => 'Y-m-d H:i:s']) !!}
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                          </span>
+                                        </div>
+                                        {!! Form::text('published_at', null, ['class' => 'form-control date', 'placeholder' => 'Y-m-d H:i:s']) !!}
+                                    </div>
                                     @if($errors->has('published_at'))
                                         <span class="help-block error">{{$errors->first('published_at')}}</span>
                                     @endif
                                 </div>
+                                <div class="pull-left">
+                                    <a id="draft-btn" class="btn btn-default">Save Draft</a>
+                                </div>
+                                <div class="pull-right">
+                                    {!! Form::submit('Publish',['class' =>'btn btn-primary']) !!}
+                                </div></div>
+{{--                            <div class="card-footer"></div>--}}
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Category</div>
+                            <div class="card-body">
                                 <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}">
-                                    {!! Form::label('category_id', 'Category') !!}
+
                                     {!! Form::select('category_id', App\Category::pluck('title','id'),null, ['class' => 'form-control', 'placeholder' => 'Choose Category']) !!}
                                     @if($errors->has('category_id'))
                                         <span class="help-block error">{{$errors->first('category_id')}}</span>
                                     @endif
                                 </div>
+                            </div>
+
+                        </div>
+                        <div class="card">
+                            <div class="card-header ">Featured Image</div>
+                            <div class="card-body text-center">
                                 <div class="form-group {{$errors->has('image') ? 'has-error' : ''}}">
-                                    {!! Form::label('image', 'Feature Image') !!}
-                                    {!! Form::file('image') !!}
+
+                                    <br>
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
+                                            <img src="http://placehold.it/200x150&text=No+Image"  alt="...">
+                                        </div>
+                                        <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                        <div>
+                                            <span class="btn btn-outline-secondary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>{!! Form::file('image') !!}</span>
+                                            <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                        </div>
+                                    </div>
+
                                     @if($errors->has('image'))
                                         <span class="help-block error">{{$errors->first('image')}}</span>
                                     @endif
                                 </div>
-                                <hr>
-                                {!! Form::submit('Create New Post',['class' =>'btn btn-primary']) !!}
-                            {!! Form::close() !!}
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="container">
-                                <div class="float-left">
-
-                                </div>
-                                <div class="float-right">
-
-                                    <small></small>
-                                </div>
                             </div>
 
                         </div>
-                        <!-- /.card -->
                     </div>
+                    {!! Form::close() !!}
                 </div>
                 <!-- /.row (main row) -->
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
     </div>
+@endsection
+
+@section('script')
+<script>
+    $('#title').on('blur',function(){
+        var theTitle = this.value.toLowerCase().trim(),
+            slugInput = $('#slug'),
+            theSlug = theTitle.replace(/&/g, '-and-')
+                .replace(/[^a-z0-9-]+/g, '-')
+                .replace(/\-\-+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        slugInput.val(theSlug);
+    });
+    var simplemde1 = new SimpleMDE({ element: $("#excerpt")[0] });
+    var simplemde2 = new SimpleMDE({ element: $("#body")[0] });
+
+
+    $('#published_at').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss'
+
+    });
+
+    $("#draft-btn").click(function (e) {
+        e.preventDefault();
+        $("#published_at").val("");
+        $('#post-form').submit();
+
+    })
+
+
+</script>
 @endsection

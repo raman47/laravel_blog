@@ -62,8 +62,10 @@ class Post extends Model
     public function publicationLabel(){
         if(! $this->published_at){
             return '<span class="badge badge-warning"> Draft</span>';
-        }elseif ($this->published_at && $this->published_at->isFuture()){
-            return '<span class="badge badge-info"> Schedule</span>';
+
+//        }elseif ($this->published_at && $this->published_at->isFuture()){
+//            return '<span class="badge badge-info"> Schedule</span>';
+
         }else{
             return '<span class="badge badge-success"> Published</span>';
         }

@@ -11,7 +11,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->truncate();
+       // DB::table('categories')->truncate();
 
         DB::table('categories')->insert([
             [
@@ -34,7 +34,7 @@ class CategoriesTableSeeder extends Seeder
                 'title' => 'Photography',
                 'slug' => 'photography'
             ],
-            
+
         ]);
 
         //update the posts data

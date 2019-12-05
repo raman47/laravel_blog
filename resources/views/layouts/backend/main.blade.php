@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="/backend/plugins/simplemde/simplemde.min.css">
     <link rel="stylesheet" href="/backend/css/custom.css">
     <link rel="stylesheet" href="/backend/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="/backend/bootstrap-jasny/css/jasny-bootstrap.min.css">
     <link rel="stylesheet" href="/backend/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/backend/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -47,21 +49,25 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
+<script src="/backend/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="/backend/dist/js/adminlte.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
 <script src="/backend/plugins/simplemde/simplemde.min.js"></script>
 <script src="/backend/bootstrap-jasny/js/jasny-bootstrap.min.js"></script>
+<script src="/backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="/backend/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-
-
-
-<!-- AdminLTE App -->
 <script src="/backend/dist/js/adminlte.js"></script>
+
+
+
+
+
 
 <script type="text/javascript">
     $(function () {

@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //reset the users table
-        DB::table('users')->truncate();
+       // DB::table('users')->truncate();
 
         $faker = Factory::create();
 
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
             'bio' => $faker->text(rand(250, 300))
         ],
-    
+
         ]);
     }
 }

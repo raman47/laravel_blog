@@ -16,6 +16,7 @@ class BlogController extends Controller
         ->latestFirst()
         ->published()
         ->paginate(3);
+
         return view('blog.index', compact('posts'));
     }
 

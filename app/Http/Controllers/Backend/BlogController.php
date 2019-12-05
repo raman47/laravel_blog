@@ -18,11 +18,19 @@ class BlogController extends BackendController
         $this->uploadPath = public_path(config('cms.image.directory'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('category','author')->latest()->paginate($this->limit);
-        $postCount = Post::count();
-        return view("backend.blog.index",compact('posts','postCount'));
+        if (($status = $request->get('status')) && $status == 'trash'){
+            $posts = Post::onlyTrashed()->with('category','author')->latest()->paginate($this->limit);
+            $postCount = Post::onlyTrashed()->count();
+            $onlyTrashed = TRUE;
+        }else{
+            $posts = Post::with('category','author')->latest()->paginate($this->limit);
+            $postCount = Post::count();
+            $onlyTrashed = FALSE;
+        }
+
+        return view("backend.blog.index",compact('posts','postCount', 'onlyTrashed'));
     }
 
     public function create(Post $post)
@@ -36,6 +44,7 @@ class BlogController extends BackendController
         $request->user()->posts()->create($data);
         return redirect('/backend/blog')->with('message','Your Post was created successfully');
     }
+
     private function handleRequest($request){
         $data = $request->all();
         if($request->hasFile('image')){
@@ -80,6 +89,11 @@ class BlogController extends BackendController
         $post = Post::findOrFail($id)->delete();
         return redirect('/backend/blog')->with('trash-message',['Your Post moved to Trash',$id]);
     }
+    public function forceDestroy($id){
+        $post = Post::withTrashed()->findOrFail($id)->forceDelete();
+        return redirect('/backend/blog?status=trash')->with('message', 'Your post has been Deleted Successfully');
+    }
+
     public function restore($id){
          $post = Post::withTrashed()->findOrFail($id);
          $post->restore();

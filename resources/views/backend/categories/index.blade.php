@@ -1,6 +1,6 @@
 @extends('layouts.backend.main')
 
-@section('title','My Blog | Blog index')
+@section('title','My Blog | Categories')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -10,13 +10,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Display All Blog Posts</h1>
+                        <h1 class="m-0 text-dark">Display All Categories</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url('/home')}}">Dashboard</a></li>
-                            <li class="breadcrumb-item "><a href="{{route('blog.index')}}">Blog</a></li>
-                            <li class="breadcrumb-item active">All Posts</li>
+                            <li class="breadcrumb-item "><a href="{{route('categories.index')}}">Categories</a></li>
+                            <li class="breadcrumb-item active">All Categories</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -43,36 +43,33 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="float-left mb-4 clearfix">
-                                    <a href="{{route('blog.create')}}" class="btn btn-success">Add New</a>
+                                    <a href="{{route('categories.create')}}" class="btn btn-success">Add New</a>
                                 </div>
                                 <div class="float-right">
-                                    <a href="?status=all">All</a> |
-                                    <a href="?status=trash">Trash</a>
+
                                 </div>
                                 <div class="text-center">
                                     @include('backend.partials.message')
                                 </div>
-                                @if(! $posts->count())
+                                @if(! $categories->count())
                                     <div class="alert alert-danger">
                                         <strong>  No Record Found </strong>
                                     </div>
                                 @else
-                                    @if($onlyTrashed)
-                                            @include('backend.blog.table-trash')
-                                        @else
-                                            @include('backend.blog.table')
-                                    @endif
+
+                                            @include('backend.categories.table')
+
                                 @endif
 
                             </div>
                             <!-- /.card-body -->
                             <div class="container">
                             <div class="float-left">
-                                    {{$posts->links()}}
+                                    {{$categories->links()}}
                                 </div>
                                 <div class="float-right">
 
-                                    <small>{{$postCount}} {{str_plural('Item',$postCount)}}</small>
+                                    <small>{{$categoriesCount}} {{str_plural('Item',$categoriesCount)}}</small>
                                 </div>
                             </div>
 

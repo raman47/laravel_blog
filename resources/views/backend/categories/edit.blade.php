@@ -1,6 +1,6 @@
 @extends('layouts.backend.main')
 
-@section('title','My Blog | Add New Post')
+@section('title','My Blog | Edit Category')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -11,13 +11,13 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
 
-                        <h1 class="m-0 text-dark">Add New Post</h1>
+                        <h1 class="m-0 text-dark">Edit Category</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url('/home')}}">Dashboard</a></li>
-                            <li class="breadcrumb-item "><a href="{{route('blog.index')}}">Blog</a></li>
-                            <li class="breadcrumb-item active">Add New</li>
+                            <li class="breadcrumb-item "><a href="{{route('categories.index')}}">Category</a></li>
+                            <li class="breadcrumb-item active">Edit Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -32,15 +32,15 @@
 
                 <!-- /.row -->
                 <!-- Main row -->
-                {!! Form::model($post,[
-                                'method' => 'POST',
-                                'route' => 'blog.store',
+                {!! Form::model($category,[
+                                'method' => 'PUT',
+                                'route' => ['categories.update',$category->id],
                                 'files' => true,
                                 'id' => 'post-form'
                             ]) !!}
                 <div class="row">
 
-                    @include('backend.blog.form')
+                    @include('backend.categories.form')
 
                 </div>
             {!! Form::close() !!}
@@ -51,4 +51,4 @@
     </div>
 @endsection
 
-@include('backend.blog.script')
+@include('backend.categories.script')

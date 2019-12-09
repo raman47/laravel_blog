@@ -27,17 +27,9 @@
                 <li class="nav-item has-treeview ">
                     <a href="/home" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-
-                        </p>
+                        <p>Dashboard</p>
                     </a>
-
                 </li>
-
-
-
-
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
@@ -59,16 +51,18 @@
                                 <p>Add New</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('categories.index')}}" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Categories
-
-                        </p>
+                        <i class="nav-icon far fa-folder"></i>
+                        <p>Categories</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('users.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users</p>
                     </a>
                 </li>
             </ul>
